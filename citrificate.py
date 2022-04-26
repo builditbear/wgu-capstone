@@ -4,10 +4,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pickle
 
-from sklearn.preprocessing import LabelEncoder
 from mpl_toolkits import mplot3d
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay
 
 
 pickle_reader = open("fruit-classifier.pkl", "rb")
