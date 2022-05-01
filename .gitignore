@@ -1,3 +1,4 @@
 env/
 .DS_Store
-.ipynb_checkpoints/
+.ipynb_checkpoints
+.~lock.capstone-proposal.odt#
