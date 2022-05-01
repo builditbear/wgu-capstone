@@ -103,11 +103,7 @@ def render_header():
     st.markdown("### Fruit Parameters")
 
 
-citrus_data = load_citrus_dataframe()
-encoded_names = encode_name_data()
-
-
-def main():
+def load_interface():
     render_header()
     col1, col2 = st.columns(2)
     render_userinput_and_prediction_display(col1, col2)
@@ -116,10 +112,37 @@ def main():
     with col3:
         st.markdown("### ML Training/Test Dataset")
         st.dataframe(citrus_data)
-    with col4:
-        st.image("confusion-matrix-test-results.png")
-        st.caption(
-            "Visualized false positive and false negative results from the ML model's final test on a dataset of 1600 samples.")
+        with col4:
+            st.image("confusion-matrix-test-results.png")
+            st.caption(
+                "Visualized false positive and false negative results from the ML model's final test on a dataset of 1600 samples.")
+
+
+citrus_data = load_citrus_dataframe()
+encoded_names = encode_name_data()
+if 'logged_on' not in st.session_state:
+    st.session_state['logged_on'] = False
+
+
+def main():
+    if not st.session_state['logged_on']:
+        username_slot = st.empty()
+        password_slot = st.empty()
+        login_slot = st.empty()
+        username = username_slot.text_input("Username")
+        password = password_slot.text_input("Password")
+        login = login_slot.button("login")
+        if login:
+            if username == "test-user" and password == "test-password":
+                st.session_state['logged_on'] = True
+                username_slot.empty()
+                password_slot.empty()
+                login_slot.empty()
+                load_interface()
+            else:
+                st.error("Invalid username or password entered.")
+    else:
+        load_interface()
 
 
 main()
